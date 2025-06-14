@@ -33,6 +33,12 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - run:
+          name: Create empty eval_results.json if missing
+          command: |
+            if [ ! -f eval_results.json ]; then
+              echo '{}' > eval_results.json
+            fi
       - evals/test:
           assertions: assertions.json
           metrics: eval_results.json
